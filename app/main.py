@@ -99,6 +99,10 @@ class Decider():
             for coord in level:
                 if board[coord[0]][coord[1]] == '@':
                     score -= 1.0/(i+1)
+        for i, level in enumerate(tree):
+            for coord in level:
+                if board[coord[0]][coord[1]] == '$':
+                    score -= (1.0/(i+1))*2
         return score
 
 
@@ -197,7 +201,7 @@ def make_board(data):
     for wall in data.get('walls'):
         pretty_board[wall[0]+1][wall[1]+1] = '*'
     for coin in data.get('gold'):
-        pretty_board[coin[0]+1][coin[1]+1] = '@'
+        pretty_board[coin[0]+1][coin[1]+1] = '$'
 
     for i in range(0, len(pretty_board)):
         print ''.join(pretty_board[i])
