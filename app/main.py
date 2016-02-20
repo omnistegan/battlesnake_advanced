@@ -201,7 +201,7 @@ def make_board(data):
 def start():
     data = bottle.request.json
 
-    ai.game_id = data['game_id']
+    ai.game_id = data['game']
     ai.board_dimensions = [data['width'], data['height']]
 
     response = {
