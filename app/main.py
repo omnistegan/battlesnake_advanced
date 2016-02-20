@@ -116,7 +116,7 @@ class Decider():
             if new_head[0] > pos[0]:
                 direction = 'east'
             else:
-                direction = 'west'decider.return_new_head(head, make_board(data)
+                direction = 'west'
         # Finally, return the direction to move and the new head pos
         LAST_DIRECTION = direction
         return (direction, new_head)
