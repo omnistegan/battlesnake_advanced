@@ -132,6 +132,7 @@ class Decider():
                 pass
             elif len(snake['coords']) >= self.length:
                 moves.extend(self.get_possible_moves(snake['coords'][0], board))
+        print moves
         return moves
 
 
