@@ -52,7 +52,6 @@ class Decider():
         return border
 
     def determine_score(self, pos, board):
-        global LAST_DIRECTION
         score = 0
 
         # Here we copy the board and see how far we can move
@@ -82,7 +81,7 @@ class Decider():
                     score -= 1.0/(i+1)*50
 
                 if board[coord[0]][coord[1]] == '@':
-                    # Weight based on distance from center
+                    # Weight based on distance from centerhttp://black-bart.co.uk/assets/images/jolly-roger-20.jpg
                     distance = 1.0/(abs((len(board)/2) - coord[0]) + abs((len(board)/2) - coord[1]))
                     score -= (1.0/(i+1))*(distance+1)
         for i, level in enumerate(tree):
@@ -93,6 +92,7 @@ class Decider():
 
     def rank_moves(self, pos, board, snakes):
         scores = []
+        global LAST_DIRECTION
         # For possible moves, calculate scores.
         for move in self.get_possible_moves(pos, board):
 
