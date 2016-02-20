@@ -276,7 +276,7 @@ def end():
 
 @bottle.post('/')
 def root():
-    return "Hello!"
+    return {}
 
 # Expose WSGI app (so gunicorn can find it)
 application = bottle.default_app()
