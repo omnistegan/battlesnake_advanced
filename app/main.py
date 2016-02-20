@@ -274,7 +274,7 @@ def end():
     data = bottle.request.json
     return {}
 
-@bottle.post('/')
+@bottle.get('/')
 def root():
     return {}
 
