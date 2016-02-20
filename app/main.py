@@ -52,6 +52,7 @@ class Decider():
         return border
 
     def determine_score(self, pos, board):
+        global LAST_DIRECTION
         score = 0
 
         # Here we copy the board and see how far we can move
