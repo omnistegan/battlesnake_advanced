@@ -137,7 +137,8 @@ class Decider():
             if snake['name'] == ai.name:
                 pass
             elif len(snake['coords']) >= self.length:
-                moves.extend(self.get_possible_moves(snake['coords'][0], board))
+                # Add 1 to each x and y
+                moves.extend(self.get_possible_moves((snake['coords'][0][0]+1, snake['coords'][0][1]+1), board))
         print moves
         return moves
 
