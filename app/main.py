@@ -121,10 +121,10 @@ class Decider():
     def other_snake_moves(self, snakes, board):
         self.length = 0
         moves = []
-        for snake in data['snakes']:
+        for snake in snakes:
             if snake['name'] == ai.name:
                 self.length = len(snake['coords'])
-        for snake in data['snakes']:
+        for snake in snakes:
             if snake['name'] == ai.name:
                 pass
             elif len(snake['coords']) >= self.length:
