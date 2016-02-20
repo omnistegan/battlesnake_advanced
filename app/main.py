@@ -4,7 +4,7 @@ import json
 import bottle
 from copy import deepcopy
 
-LAST_DIRECTION
+LAST_DIRECTION = None
 
 class BasicAI():
 
