@@ -26,29 +26,6 @@ class Decider():
         self.bad_characters = ['*', '#', 'H', 'A']
         self.counter = 0
 
-        """
-
-        These vars were used for tuning an older version of this snake.
-        If we could get tunable vars like this again, they could
-        be useful for fine tuning.
-
-        self.wall_vars = {'avoid' : 1.0,
-                     'distance_penalty' : 1.0,
-                     'strength' : 10.0}
-        self.snake_vars = {'avoid' : 1.0,
-                     'distance_penalty' : 1.0,
-                     'strength' : 10.0}
-        self.apple_vars = {'avoid' : -1.0,
-                     'distance_penalty' : 1.0,
-                     'strength' : 10.0}
-        self.self_vars = {'avoid' : -1.0,
-                     'distance_penalty' : 1.0,
-                     'strength' : 10.0}
-        self.empty_vars = {'avoid' : -1.0,
-                     'distance_penalty' : 1.0,
-                     'strength' : 10.0}
-        """
-
     def get_search_area(self, pos, size):
         size += 1
         search_area = []
@@ -105,12 +82,14 @@ class Decider():
                     score -= (1.0/(i+1))*1000
         return score
 
-
-    def rank_moves(self, pos, board):
+    def rank_moves(self, pos, board, snakes):
         scores = []
         # For possible moves, calculate scores.
         for move in self.get_possible_moves(pos, board):
-            scores.append([self.determine_score(move, board), move])
+
+            # Find where other snakes can move
+            if move not in self.other_snake_moves(snakes, board):
+                scores.append([self.determine_score(move, board), move])
         # If all paths are impassable, move a direction to not hang.
         if len(scores) == 0:
             # Base case
@@ -133,44 +112,28 @@ class Decider():
         # Finally, return the direction to move and the new head pos
         return (direction, new_head)
 
-    def return_new_head(self, pos, board):
+    def return_new_head(self, pos, board, snakes):
         self.counter += 1
         # This is the main call to determine a move.
-        decision = self.rank_moves(pos, board)
+        decision = self.rank_moves(pos, board, snakes)
         return decision[0]
+
+    def other_snake_moves(self, snakes, board):
+        self.length = 0
+        moves = []
+        for snake in data['snakes']:
+            if snake['name'] = ai.name:
+                self.length = len(snake['coords'])
+        for snake in data['snakes']:
+            if snake['name'] = ai.name:
+                pass
+            else len(snake['coords']) >= self.length:
+                moves.extend(self.get_possible_moves(snake['coords'][0], board))
+        return moves
+
 
 ai = BasicAI('The Mutaneers', '#ff0000')
 decider = Decider()
-
-def translate_board(board):
-    # Make a pretty board to print
-    pretty_board = []
-    for column in range(0, len(board)+2):
-        pretty_board.append([])
-        for row in range(0, len(board[0])+2):
-            # If we're on the edge, make a border
-            if (column == 0 or
-               column == len(board)+1 or
-               row == 0 or
-               row == len(board[0])+1):
-                pretty_board[column].append('*')
-            else:
-                # Make the rest empty
-                pretty_board[column].append(' ')
-
-    for x, column in enumerate(board):
-        for y, row in enumerate(column):
-            # Check for bodies, heads, and foods
-            if row['state'] == 'body':
-                pretty_board[x+1][y+1] = '#'
-            elif row['state'] == 'head':
-                pretty_board[x+1][y+1] = 'H'
-            elif row['state'] == 'food':
-                pretty_board[x+1][y+1] = '@'
-    # Finally print it out
-    for i in range(0, len(pretty_board)):
-        print ''.join(pretty_board[i])
-    return pretty_board
 
 def make_board(data):
     # Make, print, and return an ASCII array.
@@ -278,7 +241,7 @@ def move():
             head[1] = snake['coords'][0][1]+1
     print head
     # This is where you return the move you want to make
-    return {'move' : decider.return_new_head(head, make_board(data)), 'taunt' : 'taunt'}
+    return {'move' : decider.return_new_head(head, make_board(data), data['snakes']), 'taunt' : 'taunt'}
 
 @bottle.post('/end')
 def end():
