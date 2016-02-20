@@ -78,7 +78,7 @@ class Decider():
             for coord in level:
 
                 if coord[0] == len(board)/2 and coord[1] == len(board)/2:
-                    score -= 1.0/(i+1)*100
+                    score -= 1.0/(i+1)*50
 
                 if board[coord[0]][coord[1]] == '@':
                     # Weight based on distance from center
