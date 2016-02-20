@@ -77,7 +77,7 @@ class Decider():
         for i, level in enumerate(tree):
             for coord in level:
 
-                if coord[0] == len(board)/2 and coord[1] == len(board)/2:
+                if coord[0] == (len(board)/2)+1 and coord[1] == (len(board)/2)+1:
                     score -= 1.0/(i+1)*50
 
                 if board[coord[0]][coord[1]] == '@':
