@@ -78,8 +78,8 @@ class Decider():
             for coord in level:
                 if board[coord[0]][coord[1]] == '@':
                     # Weight based on distance from center
-                    distance = 1/(abs((len(board)/2) - coord[0]) + abs((len(board)/2) - coord[1]))
-                    score += ((1.0/(i+1))*distance)*-1
+                    distance = 1.0/(abs((len(board)/2) - coord[0]) + abs((len(board)/2) - coord[1]))
+                    score -= (1.0/(i+1))*(distance+1)
         for i, level in enumerate(tree):
             for coord in level:
                 if board[coord[0]][coord[1]] == '$':
