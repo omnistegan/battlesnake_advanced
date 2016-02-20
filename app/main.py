@@ -263,7 +263,7 @@ def end():
 
 @bottle.get('/')
 def root():
-    return {'head' : 'http://black-bart.co.uk/assets/images/jolly-roger-20.jpg'}
+    return {'head' : 'http://www.volonte-d.com/perso/drapeau/jollyroger.jpg'}
 
 # Expose WSGI app (so gunicorn can find it)
 application = bottle.default_app()
