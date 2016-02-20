@@ -102,7 +102,7 @@ class Decider():
         for i, level in enumerate(tree):
             for coord in level:
                 if board[coord[0]][coord[1]] == '$':
-                    score -= (1.0/(i+1))*10
+                    score -= (1.0/(i+1))*1000
         return score
 
 
