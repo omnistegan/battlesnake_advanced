@@ -272,6 +272,11 @@ def move():
 @bottle.post('/end')
 def end():
     data = bottle.request.json
+    return {}
+
+@bottle.post('/')
+def root():
+    return "Hello!"
 
 # Expose WSGI app (so gunicorn can find it)
 application = bottle.default_app()
