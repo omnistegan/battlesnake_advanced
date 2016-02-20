@@ -4,6 +4,8 @@ import json
 import bottle
 from copy import deepcopy
 
+LAST_DIRECTION
+
 class BasicAI():
 
     """
@@ -116,6 +118,7 @@ class Decider():
         self.counter += 1
         # This is the main call to determine a move.
         decision = self.rank_moves(pos, board, snakes)
+        print decision[0]
         return decision[0]
 
     def other_snake_moves(self, snakes, board):
