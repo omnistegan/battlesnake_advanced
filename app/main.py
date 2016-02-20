@@ -82,7 +82,7 @@ class Decider():
 
                 if board[coord[0]][coord[1]] == '@':
                     # Weight based on distance from centerhttp://black-bart.co.uk/assets/images/jolly-roger-20.jpg
-                    distance = 1.0/(abs((len(board)/2) - coord[0]) + abs((len(board)/2) - coord[1]))
+                    distance = 1.0/((abs((len(board)/2) - coord[0]) + abs((len(board)/2) - coord[1]))+1)
                     score -= (1.0/(i+1))*(distance+1)
         for i, level in enumerate(tree):
             for coord in level:
