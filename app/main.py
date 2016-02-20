@@ -185,7 +185,7 @@ def make_board(data):
                 pretty_board[column].append(' ')
 
     # Put snakes and food on the board
-    for food in data['food']:
+    for food in data.get('food'):
         pretty_board[food[0]+1][food[1]+1] = '@'
     for snake in data['snakes']:
         for i, pos in enumerate(snake['coords']):
@@ -193,6 +193,12 @@ def make_board(data):
                 pretty_board[pos[0]+1][pos[1]+1] = 'H'
             else:
                 pretty_board[pos[0]+1][pos[1]+1] = '#'
+    # Extra Walls and Coins
+    for wall in data.get('walls'):
+        pretty_board[wall[0]+1][wall[1]+1] = '*'
+    for coin in data.get('gold'):
+        pretty_board[coin[0]+1][coin[1]+1] = '@'
+
     for i in range(0, len(pretty_board)):
         print ''.join(pretty_board[i])
     return pretty_board
