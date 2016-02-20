@@ -118,14 +118,14 @@ class Decider():
         # Determine the correct direction to pass to the server
         if pos[0] == new_head[0]:
             if new_head[1] > pos[1]:
-                direction = 'down'
+                direction = 'south'
             else:
-                direction = 'up'
+                direction = 'north'
         else:
             if new_head[0] > pos[0]:
-                direction = 'right'
+                direction = 'east'
             else:
-                direction = 'left'
+                direction = 'west'
         # Finally, return the direction to move and the new head pos
         return (direction, new_head)
 
