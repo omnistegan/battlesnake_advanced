@@ -101,7 +101,7 @@ class Decider():
         # If all paths are impassable, move a direction to not hang.
         if len(scores) == 0:
             # Base case
-            scores.append([0, [0, 0]])
+            return (LAST_DIRECTION, [0, 0])
         # Sort the scores, lower is better.
         scores = sorted(scores)
         # return scores
@@ -116,8 +116,9 @@ class Decider():
             if new_head[0] > pos[0]:
                 direction = 'east'
             else:
-                direction = 'west'
+                direction = 'west'decider.return_new_head(head, make_board(data)
         # Finally, return the direction to move and the new head pos
+        LAST_DIRECTION = direction
         return (direction, new_head)
 
     def return_new_head(self, pos, board, snakes):
