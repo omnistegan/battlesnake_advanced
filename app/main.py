@@ -147,6 +147,7 @@ class Decider():
         print moves
         return moves
 
+"""
 def last_direction(coords):
    head = coords[0]
    last_posn = coords[1]
@@ -158,8 +159,9 @@ def last_direction(coords):
        return "south"
    elif (head[0][1] - last_posn[1][1] < 0):
        return "north"
-   else return None
-
+   else:
+       return None
+"""
 
 ai = BasicAI('The Mutaneers', '#ff0000')
 decider = Decider()
