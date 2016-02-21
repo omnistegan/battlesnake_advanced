@@ -101,8 +101,11 @@ class Decider():
                 scores.append([self.determine_score(move, board), move])
         # If all paths are impassable, move a direction to not hang.
         if len(scores) == 0:
+            for move in self.get_possible_moves(pos, board):
+                scores.append([self.determine_score(move, board), move])
             # Base case
-            return (LAST_DIRECTION, [0, 0])
+            if len(scores) == 0:
+                return (LAST_DIRECTION, [0, 0])
         # Sort the scores, lower is better.
         scores = sorted(scores)
         # return scores
@@ -143,6 +146,19 @@ class Decider():
                 moves.extend(self.get_possible_moves((snake['coords'][0][0]+1, snake['coords'][0][1]+1), board))
         print moves
         return moves
+
+def last_direction(coords):
+   head = coords[0]
+   last_posn = coords[1]
+   if   (head[0][0] - last_posn[1][0] > 0):
+       return "east"
+   elif (head[0][0] - last_posn[1][0] < 0):
+       return "west"
+   elif (head[0][1] - last_posn[1][1] > 0):
+       return "south"
+   elif (head[0][1] - last_posn[1][1] < 0):
+       return "north"
+   else return None
 
 
 ai = BasicAI('The Mutaneers', '#ff0000')
