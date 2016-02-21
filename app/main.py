@@ -77,17 +77,17 @@ class Decider():
         for i, level in enumerate(tree):
             for coord in level:
 
-                if self.counter > 2:
+                if self.counter > 10:
 
                     if coord[0] == (len(board)/2)+1 and coord[1] == (len(board)/2)+1:
                         score -= 1.0/(i+1)*35
-
-                    if board[coord[0]][coord[1]] == '@':
-                        # Weight based on distance from centerhttp://black-bart.co.uk/assets/images/jolly-roger-20.jpg
-                        distance = 1.0/((abs((len(board)/2) - coord[0]) + abs((len(board)/2) - coord[1]))+1)
-                        score -= (1.0/(i+1))*(distance+1)
                     if board[coord[0]][coord[1]] == '$':
                         score -= (1.0/(i+1))*1000
+
+                if board[coord[0]][coord[1]] == '@':
+                    # Weight based on distance from centerhttp://black-bart.co.uk/assets/images/jolly-roger-20.jpg
+                    distance = 1.0/((abs((len(board)/2) - coord[0]) + abs((len(board)/2) - coord[1]))+1)
+                    score -= (1.0/(i+1))*(distance+1)
         return score
 
     def rank_moves(self, pos, board, snakes):
