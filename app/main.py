@@ -29,6 +29,7 @@ class Decider():
         self.counter = 0
 
     def get_search_area(self, pos, size):
+        # Get a search area size moves from pos
         size += 1
         search_area = []
         for y in range(1-size, size):
@@ -38,6 +39,7 @@ class Decider():
         return search_area
 
     def get_possible_moves(self, pos, board):
+        # From pos, returns positions that are not blocked
         possibilities = []
         for move in self.get_search_area(pos, 1):
             if board[move[0]][move[1]] not in self.bad_characters:
@@ -45,6 +47,7 @@ class Decider():
         return possibilities
 
     def get_border_search_area(self, pos, size):
+        # For size, gives coords of positions that many steps away
         border = []
         border.extend(self.get_search_area(pos, size))
         for each in self.get_search_area(pos, size-1):
@@ -69,23 +72,19 @@ class Decider():
         # Set the score equal to 100x(1/number of moves deep)
         # Lower score is better
         score = (1.0/len(tree))*100
-        """
-        for i in range(0, len(board_copy)):
-            print ''.join(board_copy[i])
-        """
         # Subtract score when food appears
         for i, level in enumerate(tree):
             for coord in level:
-
                 if self.counter > 10:
-
+                    # Wait a few turns before going to the center, or for the coin
                     if coord[0] == (len(board)/2)+1 and coord[1] == (len(board)/2)+1:
+                        # Score for "near center"
                         score -= 1.0/(i+1)*35
                     if board[coord[0]][coord[1]] == '$':
+                        # Score for the coin
                         score -= (1.0/(i+1))*1000
-
                 if board[coord[0]][coord[1]] == '@':
-                    # Weight based on distance from centerhttp://black-bart.co.uk/assets/images/jolly-roger-20.jpg
+                    # Score for food
                     distance = 1.0/((abs((len(board)/2) - coord[0]) + abs((len(board)/2) - coord[1]))+1)
                     score -= (1.0/(i+1))*(distance+1)
         return score
@@ -95,7 +94,6 @@ class Decider():
         global LAST_DIRECTION
         # For possible moves, calculate scores.
         for move in self.get_possible_moves(pos, board):
-
             # Find where other snakes can move
             if move not in self.other_snake_moves(snakes, board):
                 scores.append([self.determine_score(move, board), move])
@@ -147,21 +145,6 @@ class Decider():
         print moves
         return moves
 
-"""
-def last_direction(coords):
-   head = coords[0]
-   last_posn = coords[1]
-   if   (head[0][0] - last_posn[1][0] > 0):
-       return "east"
-   elif (head[0][0] - last_posn[1][0] < 0):
-       return "west"
-   elif (head[0][1] - last_posn[1][1] > 0):
-       return "south"
-   elif (head[0][1] - last_posn[1][1] < 0):
-       return "north"
-   else:
-       return None
-"""
 
 ai = BasicAI('The Mutaneers', '#ff0000')
 decider = Decider()
@@ -222,20 +205,9 @@ def start():
 @bottle.post('/move')
 def move():
     """
-    {
-      "game_id": "hairy-cheese",
-      "turn": 1,
-      "board": [
-        [<BoardTile>, <BoardTile>, ...],
-        [<BoardTile>, <BoardTile>, ...],
-        ...
-      ],
-      "snakes":[<Snake>, <Snake>, ...],
-      "food": [[1, 4], [3, 0], [5, 2]]
-    }
-    """
 
-    """
+    This is example json passed to us by the server
+
     {u'mode': u'classic',
      u'snakes': [{u'taunt': u'WAKAWAKAWAKAWAKAWAKA',
                   u'age': 11,
@@ -262,8 +234,6 @@ def move():
      u'height': 15}
     """
     data = bottle.request.json
-
-    # Need to produce a new board.
 
     # Need to get my own head position
     head = [0, 0]
